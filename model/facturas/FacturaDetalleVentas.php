@@ -149,6 +149,7 @@ class FacturaDetalleVentas {
         }
     }
 
+    
     public function retriveFacturaAcctiva() {
         $conexion = new ConexPDO();
         if ($conexion) {
