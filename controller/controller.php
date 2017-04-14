@@ -117,7 +117,7 @@ class controlador_mvc {
     }
 
     public function pag_14() {
-        require_once 'view/facturas/homeVentas.php';
+        require_once 'view/facturas/homeFacturaVentas.php';
     }
 
     public function pag_15() {

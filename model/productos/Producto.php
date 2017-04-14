@@ -194,4 +194,29 @@ class Producto {
         }
     }
 
+    public function search_productos_disponibles_venta1() {
+        $conex = new conexionMYSQL();
+        if ($conex->conectar()) {
+
+            $sql = "SELECT id_compras,producto,codigo_barras, valor_venta,stok, fecha_compra,id_factura,id_producto
+                    FROM v_productos_disponibles_venta
+                    WHERE codigo_barras='$this->id_producto'";
+            $result = mysql_query($sql);
+            $numero_filas = mysql_num_rows($result);
+            if (($result) && ($numero_filas > 0)) {
+                while ($lista_temporal = mysql_fetch_row($result)) {
+                    $lista_resultados[] = $lista_temporal;
+                }
+                return $lista_resultados;
+            } else {
+                return false;
+            }
+            mysql_free_result($result);
+            $conex->desconectar();
+        } else {
+            echo 'ERROR CON DB';
+            return false;
+        }
+    }
+
 }

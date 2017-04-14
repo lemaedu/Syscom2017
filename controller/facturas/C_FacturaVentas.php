@@ -1,8 +1,8 @@
 <?php
 
 //require_once 'vista/ingresos/V_ingresarEquipo.php';
-require_once 'modelo/facturas/FacturaVentas.php';
-require_once 'modelo/facturas/FacturaDetalleVentas.php';
+require_once 'model/facturas/FacturaVentas.php';
+require_once 'model/facturas/FacturaDetalleVentas.php';
 
 class C_FacturaVentas {
 

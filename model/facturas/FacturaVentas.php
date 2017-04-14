@@ -1,6 +1,6 @@
 <?php
 
-include_once 'modelo/ConexDB/conexionMYSQL.php';
+require_once ('model/ConexDB/ConexPDO.php');
 
 class FacturaVentas {
 
@@ -12,7 +12,8 @@ class FacturaVentas {
     var $fecha_venta;
     var $modificado;
     var $estado;
-
+    private $attrib = array();
+    protected $tabla = "tb_factura_ventas";
 
 
     /* CAMPOS DE LA TABLA */
@@ -157,24 +158,16 @@ class FacturaVentas {
         }
     }
 
-    function retriveListaFacturaVentas() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+    public function retriveListaFacturaVentas() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select * FROM v_lista_factura_ventas where id_empleado='$this->_id_empleado' and estado<>'3' ";
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 

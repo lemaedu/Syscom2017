@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once 'controlador/actores/C_Cliente.php';
-require_once 'controlador/facturas/C_FacturaVentas.php';
-require_once 'vista/pag/FormHorizontal.php';
-require_once 'vista/pag/pagElementos.php';
-require_once 'controlador/productos/C_Productos.php';
+require_once 'controller/actores/C_Cliente.php';
+require_once 'controller/facturas/C_FacturaVentas.php';
+require_once 'view/page/FormHorizontal.php';
+require_once 'view/page/pagElementos.php';
+require_once 'controller/productos/C_Producto.php';
 
 if (!isset($_SESSION['s_id_usuario'])) {
     header('location:index.php');
@@ -18,10 +18,11 @@ if (!isset($_SESSION['s_id_usuario'])) {
     <!DOCTYPE html>
     <html lang="es">
         <head>
-            <?php require_once 'vista/pag/head.php'; ?>  
-
-            <link href="extras/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>          
-            <script src="extras/js/jquery.dataTables.min.js" type="text/javascript"></script>
+            <?php require_once 'view/page/head.php'; ?>  
+            
+            
+            <link href="resourse/dataTable/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+            <script src="resourse/dataTable/jquery.dataTables.min.js" type="text/javascript"></script>
 
 
             <script>
@@ -34,7 +35,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
             <script src="extras/js/funciones_sys.js" type="text/javascript"></script>
         </head>
         <body>
-            <?php require_once 'vista/pag/menu.php'; ?>
+            <?php require_once 'view/page/menu.php'; ?>
             <div class="container">
                 <div class="row"> 
                     <?php
@@ -83,7 +84,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         </a> 
 
 
-                                        <a href="index.php?pag=20" align="right" role="button" class="btn btn-mini btn-primary" data-toggle="modal" > Imprimir
+                                        <a href="index.php?page=20" align="right" role="button" class="btn btn-mini btn-primary" data-toggle="modal" > Imprimir
                                             <span class="glyphicon glyphicon-paste"></span>
                                         </a> 
 

@@ -1,6 +1,6 @@
 <?php
 
-include_once 'modelo/ConexDB/conexionMYSQL.php';
+require_once ('model/ConexDB/ConexPDO.php');
 
 class FacturaDetalleVentas {
 
@@ -17,6 +17,8 @@ class FacturaDetalleVentas {
     var $_id_transaccion_venta;
 
     /* CAMPOS DE LA TABLA */
+    private $attrib = array();
+    protected $tabla = "tb_categorias";
 
     function __construct() {
         
@@ -147,137 +149,81 @@ class FacturaDetalleVentas {
         }
     }
 
-    function retriveFacturaAcctiva() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+    public function retriveFacturaAcctiva() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select * FROM v_factura_compras_abiertas";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
-    function retrive_detalle_factura_compras() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+    public function retrive_detalle_factura_compras() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select * FROM v_detalle_facrura_compras WHERE _id_empleado='$this->id_empleado'";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
-    function retrive_detalle_factura_ventas_por_numero() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+    public function retrive_detalle_factura_ventas_por_numero() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select * FROM v_detalle_factura_venta WHERE _id_empleado='$this->id_empleado' and id_factura='$this->_id_factura'";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
-    function retrive_detalle_factura_ventas() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+    public function retrive_detalle_factura_ventas() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select * FROM v_detalle_factura_venta WHERE _id_empleado='$this->id_empleado' and estado='1'";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
-    function retrive_detalle_factura_ventas_total() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-
+    public function retrive_detalle_factura_ventas_total() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select  sum(precio_venta*cantidad - precio_venta*cantidad*descuento) as total FROM v_detalle_factura_venta WHERE _id_empleado='$this->id_empleado' and estado='1'";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                return $fila = mysql_fetch_array($result, MYSQL_ASSOC);
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
-    function retrive_detalle_factura_ventas_descuento() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-
+    public function retrive_detalle_factura_ventas_descuento() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "select  sum(precio_venta*cantidad) as descuento FROM v_detalle_factura_venta WHERE _id_empleado='$this->id_empleado' and estado='1'";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                return $fila = mysql_fetch_array($result, MYSQL_ASSOC);
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return $stm;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 

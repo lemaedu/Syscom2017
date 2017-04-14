@@ -7,10 +7,10 @@ if (!isset($_SESSION['s_id_usuario'])) {
     ?>
     <html lang = "es">
         <head>           
-            <?php require_once 'vista/pag/head.php'; ?>
+            <?php require_once 'view/page/head.php'; ?>
         </head>
         <body>
-            <?php require_once 'vista/pag/menu.php'; ?>
+            <?php require_once 'view/page/menu.php'; ?>
             <div class="container">             
                 <div class="row">
                     <?php

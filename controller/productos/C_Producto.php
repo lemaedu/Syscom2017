@@ -90,6 +90,16 @@ C_Producto {
             return false;
         }
     }
+      public function buscar_productos_disponibles_por_codBarr() {
+
+        $nObj = new Producto();
+        $nObj->setId_producto($_POST["codigo_barras"]);
+        if ($datos = $nObj->search_productos_disponibles_venta1()) {
+            return $datos;
+        } else {
+            return false;
+        }
+    }
       
 
 }
