@@ -1,0 +1,23 @@
+Time : 15:49:41
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '()','()')' at line 1
+Raw SQL : call pa_actualizar_categoria('(),'()','()')
+
+Time : 15:11:52
+SQLSTATE[HY000]: General error: 2014 Cannot execute queries while other unbuffered queries are active.  Consider using PDOStatement::fetchAll().  Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.
+Raw SQL : call pa_crear_categoria('Acuarelas','')
+
+Time : 15:11:04
+SQLSTATE[HY000]: General error: 2014 Cannot execute queries while other unbuffered queries are active.  Consider using PDOStatement::fetchAll().  Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.
+Raw SQL : call pa_crear_categoria('Acuarelas','')
+
+Time : 14:27:38
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '),())' at line 1
+Raw SQL : call pa_crear_categoria((),())
+
+Time : 14:20:49
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''())' at line 1
+Raw SQL : call pa_crear_categoria('()','())
+
+Time : 14:18:14
+SQLSTATE[42000]: Syntax error or access violation: 1318 Incorrect number of arguments for PROCEDURE db_syscomandes.pa_eliminar_categoria; expected 1, got 0
+Raw SQL : call pa_eliminar_categoria()
