@@ -170,24 +170,17 @@ class Producto {
     }
 
     public function search() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-
-
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql1 = "SELECT * FROM v_producto_marca_categoria
                     WHERE producto LIKE '%$this->descripcion%' or codigo_barras LIKE '%$this->descripcion%' ";
-            $result = mysql_query($sql1);
-            $numero_filas = mysql_num_rows($result);
-            if (($result) && ($numero_filas > 0)) {
-                while ($lista_temporal = mysql_fetch_row($result)) {
-                    $lista_resultados[] = $lista_temporal;
-                }
-                return $lista_resultados;
+            $result = $conex-> query($sql1);
+            if ($result) {
+                return $resul;
             } else {
                 return false;
             }
-            mysql_free_result($result);
-            $conex->desconectar();
+            $conex->CloseConnection();
         } else {
             echo 'ERROR CON DB';
             return false;
