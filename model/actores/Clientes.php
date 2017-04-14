@@ -147,29 +147,23 @@ class Clientes {
     }
 
     public function search() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-
-            $sql = "SELECT * FROM tb_clientes
+        $conex = new ConexPDO();
+        if ($conex) {
+             $sql = "SELECT * FROM tb_clientes
                     WHERE (cedula LIKE '%$this->id_cliente%') OR (nombres  LIKE '%$this->id_cliente%')";
-            $result = mysql_query($sql);
-            $numero_filas = mysql_num_rows($result);
-
-            if (($result) && ($numero_filas > 0)) {
-                while ($lista_temporal = mysql_fetch_row($result)) {
-                    $lista_resultados[] = $lista_temporal;
-                }
-                return $lista_resultados;
+            $result = $conex->query($sql);            
+            if ($result ) {                
+                return $result;
             } else {
                 return false;
-            }
-            mysql_free_result($result);
-            $conex->desconectar();
+            }            
+            $conex->CloseConnection();
         } else {
             echo 'ERROR CON DB';
             return false;
         }
     }
+    
 
     public function search1() {
         $conex = new conexionMYSQL();
