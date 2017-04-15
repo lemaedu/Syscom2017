@@ -30,7 +30,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <?php
-                            $id_tab = "id_proveedor";
+                            $id_tab = "ruc";
                             $nObj = new C_Proveedor ();
                             $campos = $nObj->getCampos();
                             $numCampos = count($campos);
@@ -68,8 +68,8 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                 for ($i = 0; $i < $numCampos; $i++) {
                                     $array[$i] = "10";
                                 }
-                                getHeadTable($campos, $numCampoVisible, $array, $id_tab);
-
+                                getHeadTable($campos, $numCampoVisible, $array, $id_tab);  
+                               
                                 //---------------CUERPO DE LA TABLA  ----------------  
                                 if (empty($_POST['buscar'])) {
                                     $resultados = $nObj->listar();
@@ -98,6 +98,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         echo '</tr>';
                                         formulario_eliminar($col[0], $col[1]);
                                         // ------------ Div Para Actualizar Registros --------------                                               
+                                        
                                         getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, $id_tab);
                                     }
                                 }
@@ -109,6 +110,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
             </div> <!--container-fluid-->
             <?php
 //                        Llama a Div para nuevo registro
+             
             getDivNew($campos, $numCampoVisible, $numCampos, $id_tab);
             ?>
         </body>

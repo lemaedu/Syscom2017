@@ -50,7 +50,6 @@ class FormHorizontal {
 
 }
 
-
 //Diva para Actualizar Registrso-----
 function getDivActualizar($col_0, $col, $campos, $numCampoVisible, $numCampos, $id_valor) {
     ?>
@@ -115,12 +114,13 @@ function getDivNew($campos, $numCampoVisible, $numCampos, $id_valor) {
                             if ($campos != null) {
                                 $j = 0;
                                 foreach ($campos as $campo) {
-                                    if ($j == (round((($numCampoVisible + $numCampos) / 2) / 2))) {
+                                    $a = round((($numCampoVisible + $numCampos) / 2) / 2);                                    
+                                    if ($j == $a) {
 
                                         echo '</div><div class="col-md-6">';
                                     }
                                     if (($campo[1] != "timestamp") and ( $campo[0] != $id_valor)and ( $campo[0] != "estado")) {
-                                        if ($campo[0] == "descripcion") {
+                                        if ($campo[0] == "descripcion" or $campo[0] == "direccion") {
                                             txt_textarea($campo[0], "");
                                         } else {
                                             txt_input($campo[0], "text", "");
@@ -153,7 +153,7 @@ function getBodyTable() {
     ';
 }
 
-function getHeadTable($dato, &$numCampoVisible, $array,$id_tab) {
+function getHeadTable($dato, &$numCampoVisible, $array, $id_tab) {
     ?>    
     <thead>
         <tr class="success"> 
@@ -255,7 +255,7 @@ function boton_editar_eliminar($id) {
                 </a>
                 <a href="#eliminar' . $id . '" role="button" class="btn btn-xs btn-default" data-toggle="modal" title="Eliminar" >
                     <span class="glyphicon glyphicon-trash"></span>                    
-                    </a>
+                </a>
             </td>';
 }
 
@@ -318,13 +318,10 @@ function formulario_eliminar($id, $nombre) {
                                 <center><button type="submit" class="btn btn-danger" name="eliminar" ><strong><i class="icon-trash"></i> ELIMINAR </strong></button></center>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
-
                 </form>
             </div>
         </div>

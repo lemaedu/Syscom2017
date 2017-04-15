@@ -69,8 +69,6 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                     $array[$i] = "10";
                                 }
                                 getHeadTable($campos, $numCampoVisible, $array, $id_tab);
-                                
-
                                 //---------------CUERPO DE LA TABLA  ----------------  
                                 if (empty($_POST['buscar'])) {
                                     $resultados = $nObj->listar();
@@ -110,6 +108,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
             </div> <!--container-fluid-->
             <?php
 //                        Llama a Div para nuevo registro
+            
             getDivNew($campos, $numCampoVisible, $numCampos, $id_tab);
             ?>
         </body>

@@ -1,3 +1,11 @@
+Time : 15:24:36
+SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`db_syscomandes`.`tb_factura_ventas`, CONSTRAINT `tb_factura_ventas_ibfk_1` FOREIGN KEY (`_id_cliente`) REFERENCES `tb_clientes` (`id_cliente`))
+Raw SQL : call pa_eliminar_cliente(10)
+
+Time : 14:01:25
+SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`db_syscomandes`.`tb_factura_ventas`, CONSTRAINT `tb_factura_ventas_ibfk_1` FOREIGN KEY (`_id_cliente`) REFERENCES `tb_clientes` (`id_cliente`))
+Raw SQL : call pa_eliminar_cliente(10)
+
 Time : 13:43:11
 SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`db_syscomandes`.`tb_factura_ventas`, CONSTRAINT `tb_factura_ventas_ibfk_1` FOREIGN KEY (`_id_cliente`) REFERENCES `tb_clientes` (`id_cliente`))
 Raw SQL : call pa_eliminar_cliente(8)

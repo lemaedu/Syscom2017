@@ -35,8 +35,7 @@ C_Cliente {
             $nCliente->setNombre($_POST["nombres"]);
             $nCliente->setTelefono($_POST["telefono"]);
             $nCliente->setCorreo($_POST["correo"]);
-            $nCliente->setDireccion($_POST["direccion"]);
-            $nCliente->setEstado($_POST["estado"]);
+            $nCliente->setDireccion($_POST["direccion"]);            
 
             if ($nCliente->update()) {
                 return true;
@@ -89,9 +88,7 @@ C_Cliente {
     }
 
     public function eliminar() {
-
         try {
-
             $nCliente = new Clientes();
             $nCliente->setId_cliente($_POST["id"]);
             if ($nCliente->delete()) {
