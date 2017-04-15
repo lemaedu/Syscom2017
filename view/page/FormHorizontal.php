@@ -153,7 +153,7 @@ function getBodyTable() {
     ';
 }
 
-function getHeadTable($dato, $numCampoVisible, $array) {
+function getHeadTable($dato, $numCampoVisible, $array,$id_tab) {
     ?>    
     <thead>
         <tr class="success"> 
@@ -162,7 +162,7 @@ function getHeadTable($dato, $numCampoVisible, $array) {
                 $i = 0;
                 //---------------------cabecera de la tabla-----------
                 foreach ($dato as $campo) {
-                    if (($campo[1] != "timestamp") and ( $campo[0] != "id_categoria")) {
+                    if (($campo[1] != "timestamp") and ( $campo[0] != $id_tab)) {
                         echo '<td width="' . $array[$i] . '"><center><strong>' . strtoupper($campo[0]) . '</strong></center></td>';
                         $numCampoVisible++;
                     }

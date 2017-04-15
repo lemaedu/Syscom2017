@@ -27,9 +27,6 @@ C_Cliente {
         }
     }
 
-
- 
-
     public function actualizar() {
         try {
             $nCliente = new Clientes();
@@ -104,6 +101,15 @@ C_Cliente {
             }
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
+            return false;
+        }
+    }
+
+    public function getCampos() {
+        $nObj_control = new Clientes();
+        if ($lista_control = $nObj_control->camposTabla()) {
+            return $lista_control;
+        } else {
             return false;
         }
     }

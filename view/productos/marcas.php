@@ -9,9 +9,9 @@ if (!isset($_SESSION['s_id_usuario'])) {
     <!DOCTYPE html>
     <html lang="es">
         <head>
-            <?php require_once 'view/page/head.php'; ?>         
+            <?php require_once 'view/page/head.php'; ?>    
 
-            <link href="resourse/dataTable/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>            
+            <link href="resourse/dataTable/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
             <script src="resourse/dataTable/jquery.dataTables.min.js" type="text/javascript"></script>
 
             <script>
@@ -30,6 +30,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <?php
+                            $id_tab = "id_marca";
                             $nObj = new C_Marca ();
                             $campos = $nObj->getCampos();
                             $numCampos = count($campos);
@@ -59,12 +60,15 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                     mensaje_eliminar_error();
                                 }
                             }
-                            ?>                            
-                            <!--<table id="tabla" class="display" cellspacing="0" width="100%">-->
+                            ?>                        
                             <table id="tabla" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <?php
-                                $array = array("5%", "10%", "10%", "15%", "15%", "5%");
-                                getHeadTable($campos, $numCampoVisible, $array);
+                                // envia datos y obtiene la cabecera de la tabla
+                                $array = array();
+                                for ($i = 0; $i < $numCampos; $i++) {
+                                    $array[$i] = "10";
+                                }
+                                getHeadTable($campos, $numCampoVisible, $array, $id_tab);
 
                                 //---------------CUERPO DE LA TABLA  ----------------  
                                 if (empty($_POST['buscar'])) {
@@ -77,7 +81,8 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         echo '<tr>';
                                         for ($i = 0; $i < $numCampos; $i++) {
                                             foreach ($campos as $campo) {
-                                                if (($campo[0] != "registrado") and ( $campo[0] != "modificado")) {
+                                                if (($campo[1] != "timestamp") and ( $campo[0] != $id_tab)) {
+
                                                     if ($campo[0] == "estado") {
                                                         echo '<td ><center>' . estado($col[0], $col[$i]) . '</center></td>';
                                                     } else {
@@ -92,7 +97,8 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         boton_editar_eliminar($id);
                                         echo '</tr>';
                                         formulario_eliminar($col[0], $col[1]);
-                                        getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, "id_marca");
+                                        // ------------ Div Para Actualizar Registros --------------                                               
+                                        getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, $id_tab);
                                     }
                                 }
                                 ?>
@@ -101,11 +107,9 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     </div><!--class="col-md-12"-->
                 </div> <!-- class="row"-->
             </div> <!--container-fluid-->
-
-            <!-- nuevo registro  -->
             <?php
 //                        Llama a Div para nuevo registro
-            getDivNew($campos, $numCampoVisible, $numCampos, "id_marca");
+            getDivNew($campos, $numCampoVisible, $numCampos, $id_tab);
             ?>
         </body>
     </html>

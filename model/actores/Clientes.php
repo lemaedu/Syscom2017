@@ -1,6 +1,7 @@
 <?php
 
 require_once 'model/ConexDB/ConexPDO.php';
+include_once 'model/generico/Funciones.php';
 
 class Clientes {
 
@@ -11,6 +12,10 @@ class Clientes {
     var $telefono;
     var $direccion;
     var $estado;
+
+    /* ---------------- */
+    private $attrib = array();
+    protected $tabla = "tb_clientes";
 
     function __construct() {
         
@@ -87,7 +92,6 @@ class Clientes {
         }
     }
 
-
     public function update() {
         $conex = new conexionMYSQL();
         if ($conex->conectar()) {
@@ -111,7 +115,7 @@ class Clientes {
 
     public function delete() {
         $conex = new conexionMYSQL();
-        if ($conex->conectar()) {            
+        if ($conex->conectar()) {
             try {
                 $sql = "delete FROM tb_clientes
                         WHERE id_cliente='$this->id_cliente'";
@@ -133,12 +137,12 @@ class Clientes {
         $conex = new ConexPDO();
         if ($conex) {
             $sql = "SELECT * FROM tb_clientes ";
-            $result = $conex->query($sql);            
-            if ($result ) {                
+            $result = $conex->query($sql);
+            if ($result) {
                 return $result;
             } else {
                 return false;
-            }            
+            }
             $conex->CloseConnection();
         } else {
             echo 'ERROR CON DB';
@@ -149,21 +153,20 @@ class Clientes {
     public function search() {
         $conex = new ConexPDO();
         if ($conex) {
-             $sql = "SELECT * FROM tb_clientes
+            $sql = "SELECT * FROM tb_clientes
                     WHERE (cedula LIKE '%$this->id_cliente%') OR (nombres  LIKE '%$this->id_cliente%')";
-            $result = $conex->query($sql);            
-            if ($result ) {                
+            $result = $conex->query($sql);
+            if ($result) {
                 return $result;
             } else {
                 return false;
-            }            
+            }
             $conex->CloseConnection();
         } else {
             echo 'ERROR CON DB';
             return false;
         }
     }
-    
 
     public function search1() {
         $conex = new conexionMYSQL();
@@ -187,6 +190,10 @@ class Clientes {
             echo 'ERROR CON DB';
             return false;
         }
+    }
+
+    public function camposTabla() {
+        return getCamposTabla($this->tabla);
     }
 
 }
