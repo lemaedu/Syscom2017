@@ -30,7 +30,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <?php
-                            $id_tab = "ruc";
+                            $id_tab = "";
                             $nObj = new C_Proveedor ();
                             $campos = $nObj->getCampos();
                             $numCampos = count($campos);
