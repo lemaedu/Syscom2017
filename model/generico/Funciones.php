@@ -13,7 +13,7 @@ function getCamposTabla($nombreTabla) {
     if ($conexion) {
         try {
             $sql = "SHOW COLUMNS FROM $nombreTabla";
-            $resultado = $conexion->query($sql);            
+            $resultado = $conexion->query($sql);
             return $resultado;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -23,12 +23,12 @@ function getCamposTabla($nombreTabla) {
     }
 }
 
-function getDatosTabla($nombreTabla) {    
+function getDatosTabla($nombreTabla) {
     $conexion = new ConexPDO();
     if ($conexion) {
         try {
             $sql = "select * FROM $nombreTabla";
-            $resultado = $conexion->query($sql);            
+            $resultado = $conexion->query($sql);
             return $resultado;
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
@@ -36,6 +36,7 @@ function getDatosTabla($nombreTabla) {
     } else {
         return false;
     }
+    $conexion->CloseConnection();
 }
 
 function execute_pa($procedimiento_almacenado, $valor) {
@@ -53,6 +54,5 @@ function execute_pa($procedimiento_almacenado, $valor) {
             echo "No se pudo pudieron obtener los datos Error" . $ex->getMessage();
         }
     }
+    $conexion->CloseConnection();
 }
-
-

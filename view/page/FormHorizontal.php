@@ -153,7 +153,7 @@ function getBodyTable() {
     ';
 }
 
-function getHeadTable($dato, $numCampoVisible, $array,$id_tab) {
+function getHeadTable($dato, &$numCampoVisible, $array,$id_tab) {
     ?>    
     <thead>
         <tr class="success"> 

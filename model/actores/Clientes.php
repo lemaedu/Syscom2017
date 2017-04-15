@@ -53,8 +53,8 @@ class Clientes {
     public function create() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "call pa_crear_cliente('$this->nombre','$this->cedula',
-                            '$this->correo','$this->telefono','$this->direccion')";
+            $sql = "call pa_crear_cliente('" . $this->getNombre() . "','" . $this->getCedula() . "',
+                            '" . $this->getCorreo() . "','" . $this->getTelefono() . "','" . $this->getDireccion() . "')";
             $result = $conex->query($sql);
             if ($result) {
                 return true;
@@ -71,9 +71,8 @@ class Clientes {
     public function update() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "UPDATE tb_clientes SET nombres='$this->nombre',cedula='$this->cedula',
-                        correo='$this->correo',telefono='$this->telefono',direccion='$this->direccion',
-                        estado='$this->estado' WHERE id_cliente='$this->id_cliente'";
+            $sql = "call pa_actualizar_cliente('" . $this->getId_cliente() . "', '" . $this->getNombre() . "','" . $this->getCedula() . "',
+                        '" . $this->getCorreo() . "','" . $this->getTelefono() . "','" . $this->getDireccion() . "')";
             $result = $conex->query($sql);
             if ($result) {
                 return true;
@@ -94,7 +93,7 @@ class Clientes {
     public function retrive() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "SELECT * FROM tb_clientes ";
+            $sql = "SELECT * FROM $this->tabla ";
             $result = $conex->query($sql);
             if ($result) {
                 return $result;
@@ -111,7 +110,7 @@ class Clientes {
     public function search() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "SELECT * FROM tb_clientes
+            $sql = "SELECT * FROM $this->tabla
                     WHERE (cedula LIKE '%$this->id_cliente%') OR (nombres  LIKE '%$this->id_cliente%')";
             $result = $conex->query($sql);
             if ($result) {
@@ -120,16 +119,13 @@ class Clientes {
                 return false;
             }
             $conex->CloseConnection();
-        } else {
-            echo 'ERROR CON DB';
-            return false;
-        }
+        } 
     }
 
     public function search1() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "SELECT * FROM tb_clientes
+            $sql = "SELECT * FROM $this->tabla
                     WHERE (id_cliente ='$this->cedula')";
             $result = $conex->query($sql);
             if ($result) {
@@ -138,10 +134,7 @@ class Clientes {
                 return false;
             }
             $conex->CloseConnection();
-        } else {
-            echo 'ERROR CON DB';
-            return false;
-        }
+        } 
     }
 
     public function camposTabla() {
