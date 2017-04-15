@@ -54,8 +54,7 @@ C_Proveedor {
             $nObj->setNombres($_POST["nombres"]);
             $nObj->setTelefono($_POST["telefono"]);
             $nObj->setCorreo($_POST["correo"]);
-            $nObj->setDireccion($_POST["direccion"]);
-            $nObj->setEstado($_POST["estado"]);
+            $nObj->setDireccion($_POST["direccion"]);            
 
             if ($nObj->update()) {
                 return true;
@@ -95,7 +94,7 @@ C_Proveedor {
         try {
 
             $nObj = new Proveedor();
-            $nObj->setRuc($_POST["id"]);
+            $nObj->setRuc($_POST["id"]);           
             if ($nObj->delete()) {
                 return true;
             } else {

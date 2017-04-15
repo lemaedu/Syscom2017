@@ -44,7 +44,7 @@ function execute_pa($procedimiento_almacenado, $valor) {
     if ($conexion) {
         try {
             $sql = "call $procedimiento_almacenado($valor)";
-            $stm = $conexion->query($sql);
+            $stm = $conexion->query($sql);            
             if (!$stm) {
                 return true;
             } else {
