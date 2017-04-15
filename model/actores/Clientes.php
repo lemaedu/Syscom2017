@@ -21,116 +21,74 @@ class Clientes {
         
     }
 
-    function getId_cliente() {
-        return $this->id_cliente;
+    //Metodo magico utilizado para __set y __get
+    public function __call($method, $args) {
+        $methodType = substr($method, 0, 3);
+        $attribName = strtolower(substr($method, 3));
+        $claseName = get_class($this);
+        if ($methodType == "set") {
+            if (property_exists($claseName, $attribName)) {
+                $this->setAttrib($attribName, $args[0]);
+            } else {
+                echo "No existe el atributo $attribName.";
+            }
+        }
+        if ($methodType == "get") {
+            if (property_exists($claseName, $attribName)) {
+                return $this->getAttrib($attribName);
+            } else {
+                echo 'Método no definido <br/>';
+            }
+        }
     }
 
-    function getApellido() {
-        return $this->apellido;
+    private function setAttrib($attribName, $value) {
+        $this->attrib[$attribName] = "$value";
     }
 
-    function getCedula() {
-        return $this->cedula;
-    }
-
-    function getCorreo() {
-        return $this->correo;
-    }
-
-    function getTelefono() {
-        return $this->telefono;
-    }
-
-    function getDireccion() {
-        return $this->direccion;
-    }
-
-    function getEstado() {
-        return $this->estado;
-    }
-
-    function setId_cliente($id_cliente) {
-        $this->id_cliente = $id_cliente;
-    }
-
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    function setCedula($cedula) {
-        $this->cedula = $cedula;
-    }
-
-    function setCorreo($correo) {
-        $this->correo = $correo;
-    }
-
-    function setTelefono($telefono) {
-        $this->telefono = $telefono;
-    }
-
-    function setDireccion($direccion) {
-        $this->direccion = $direccion;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
+    private function getAttrib($attribName) {
+        return $this->attrib[$attribName];
     }
 
     public function create() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "call pa_crear_cliente('$this->nombre','$this->cedula',
                             '$this->correo','$this->telefono','$this->direccion')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
+            $conex->CloseConnection();
         } else {
-            echo 'ERROR DE CONEXION CON DB';
+            echo 'ERROR CON DB';
+            return false;
         }
     }
 
     public function update() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-            try {
-                $sql = "UPDATE tb_clientes SET nombres='$this->nombre',cedula='$this->cedula',
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "UPDATE tb_clientes SET nombres='$this->nombre',cedula='$this->cedula',
                         correo='$this->correo',telefono='$this->telefono',direccion='$this->direccion',
                         estado='$this->estado' WHERE id_cliente='$this->id_cliente'";
-                $result = mysql_query($sql);
-                if ($result > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (Exception $ex) {
-                echo "No se pudo pudieron obtener los datos Error" . $ex->getMessage();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
+            $conex->CloseConnection();
         } else {
-            echo 'ERROR DE CONEXION CON DB';
+            echo 'ERROR CON DB';
+            return false;
         }
     }
 
     public function delete() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-            try {
-                $sql = "delete FROM tb_clientes
-                        WHERE id_cliente='$this->id_cliente'";
-                if (!mysql_query($sql)) {
-                    echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
-                    return false;
-                }
-                $conex->desconectar();
-                return true;
-            } catch (Exception $ex) {
-                echo "No se pudo pudieron obtener los datos Error" . $ex->getMessage();
-            }
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
-        }
+        return execute_pa("pa_eliminar_cliente", $this->getId_cliente());
     }
 
     public function retrive() {
@@ -169,23 +127,17 @@ class Clientes {
     }
 
     public function search1() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "SELECT * FROM tb_clientes
                     WHERE (id_cliente ='$this->cedula')";
-            $result = mysql_query($sql);
-            $numero_filas = mysql_num_rows($result);
-
-            if (($result) && ($numero_filas > 0)) {
-                while ($lista_temporal = mysql_fetch_assoc($result)) {
-                    $lista_resultados[] = $lista_temporal;
-                }
-                return $lista_resultados;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            mysql_free_result($result);
-            $conex->desconectar();
+            $conex->CloseConnection();
         } else {
             echo 'ERROR CON DB';
             return false;

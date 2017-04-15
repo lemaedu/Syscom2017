@@ -30,6 +30,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <?php
+                            $id_tab = "id_proveedor";
                             $nObj = new C_Proveedor ();
                             $campos = $nObj->getCampos();
                             $numCampos = count($campos);
@@ -63,8 +64,11 @@ if (!isset($_SESSION['s_id_usuario'])) {
                             <table id="tabla" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                 <?php
                                 // envia datos y obtiene la cabecera de la tabla
-                                $array = array("10%","10%", "10%", "10%", "10%", "15%", "15%", "5%");
-                                getHeadTable($campos, $numCampoVisible, $array);
+                                $array = array();
+                                for ($i = 0; $i < $numCampos; $i++) {
+                                    $array[$i] = "10";
+                                }
+                                getHeadTable($campos, $numCampoVisible, $array, $id_tab);
 
                                 //---------------CUERPO DE LA TABLA  ----------------  
                                 if (empty($_POST['buscar'])) {
@@ -77,7 +81,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         echo '<tr>';
                                         for ($i = 0; $i < $numCampos; $i++) {
                                             foreach ($campos as $campo) {
-                                                if (($campo[1] != "timestamp") and ( $campo[0] != "id_categoria")) {
+                                                if (($campo[1] != "timestamp") and ( $campo[0] != $id_tab)) {
 
                                                     if ($campo[0] == "estado") {
                                                         echo '<td ><center>' . estado($col[0], $col[$i]) . '</center></td>';
@@ -94,7 +98,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         echo '</tr>';
                                         formulario_eliminar($col[0], $col[1]);
                                         // ------------ Div Para Actualizar Registros --------------                                               
-                                        getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, "id_categoria");
+                                        getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, $id_tab);
                                     }
                                 }
                                 ?>
@@ -103,10 +107,9 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     </div><!--class="col-md-12"-->
                 </div> <!-- class="row"-->
             </div> <!--container-fluid-->
-
             <?php
 //                        Llama a Div para nuevo registro
-            getDivNew($campos, $numCampoVisible, $numCampos, "id_categoria");
+            getDivNew($campos, $numCampoVisible, $numCampos, $id_tab);
             ?>
         </body>
     </html>
