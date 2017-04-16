@@ -30,6 +30,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <?php
+                            $id_tab = "id_menu";
                             $nObj = new C_Menu ();
                             $campos = $nObj->getCampos();
                             $numCampos = count($campos);
@@ -64,7 +65,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                 <?php
                                 // envia datos y obtiene la cabecera de la tabla
                                 $array = array("10%", "10%", "10%", "15%", "15%", "5%");
-                                getHeadTable($campos, $numCampoVisible, $array);
+                                getHeadTable($campos, $numCampoVisible, $array,$id_tab);
 
                                 //---------------CUERPO DE LA TABLA  ----------------  
                                 if (empty($_POST['buscar'])) {
@@ -77,7 +78,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         echo '<tr>';
                                         for ($i = 0; $i < $numCampos; $i++) {
                                             foreach ($campos as $campo) {
-                                                if (($campo[1] != "timestamp") and ( $campo[0] != "id_categoria")) {
+                                                if (($campo[1] != "timestamp") and ( $campo[0] != $id_tab)) {
 
                                                     if ($campo[0] == "estado") {
                                                         echo '<td ><center>' . estado($col[0], $col[$i]) . '</center></td>';
@@ -94,7 +95,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         echo '</tr>';
                                         formulario_eliminar($col[0], $col[1]);
                                         // ------------ Div Para Actualizar Registros --------------                                               
-                                        getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, "id_categoria");
+                                        getDivActualizar($col[0], $col, $campos, $numCampoVisible, $numCampos, $id_tab);
                                     }
                                 }
                                 ?>
@@ -106,7 +107,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
 
             <?php
 //                        Llama a Div para nuevo registro
-            getDivNew($campos, $numCampoVisible, $numCampos, "id_categoria");
+            getDivNew($campos, $numCampoVisible, $numCampos, $id_tab);
             ?>
         </body>
     </html>

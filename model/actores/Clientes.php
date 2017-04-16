@@ -53,8 +53,8 @@ class Clientes {
     public function create() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "call pa_crear_cliente('" . $this->getNombre() . "','" . $this->getCedula() . "',
-                            '" . $this->getCorreo() . "','" . $this->getTelefono() . "','" . $this->getDireccion() . "')";
+            $sql = "call pa_crear_cliente(" . $this->getNombre() . "," . $this->getCedula() . ",
+                            " . $this->getCorreo() . "," . $this->getTelefono() . "," . $this->getDireccion() . ")";
             $result = $conex->query($sql);
             if ($result) {
                 return true;
@@ -71,8 +71,8 @@ class Clientes {
     public function update() {
         $conex = new ConexPDO();
         if ($conex) {
-            $sql = "call pa_actualizar_cliente('" . $this->getId_cliente() . "', '" . $this->getNombre() . "','" . $this->getCedula() . "',
-                        '" . $this->getCorreo() . "','" . $this->getTelefono() . "','" . $this->getDireccion() . "')";
+            $sql = "call pa_actualizar_cliente(" . $this->getId_cliente() . ", " . $this->getNombre() . "," . $this->getCedula() . "',
+                        " . $this->getCorreo() . "," . $this->getTelefono() . "," . $this->getDireccion() . ")";
             $result = $conex->query($sql);
             if ($result) {
                 return true;
@@ -86,9 +86,11 @@ class Clientes {
         }
     }
 
-    public function delete() {
+    
+    public function delete(){
         return execute_pa("pa_eliminar_cliente", $this->getId_cliente());
     }
+     
 
     public function retrive() {
         $conex = new ConexPDO();
