@@ -32,7 +32,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                 });
 
             </script>
-            <script src="extras/js/funciones_sys.js" type="text/javascript"></script>
+            <script src="resourse/js/funciones_sys.js" type="text/javascript"></script>
         </head>
         <body>
             <?php require_once 'view/page/menu.php'; ?>

@@ -1,6 +1,6 @@
 <?php
-require_once '../../modelo/productos/M_Producto.php';
-require_once '../../vista/pag/FormHorizontal.php';
+require_once '../../model/productos/MProducto.php';
+require_once '../../view/page/FormHorizontal.php';
 
 $buscar = $_POST['b'];
 
@@ -8,11 +8,8 @@ if (!empty($buscar) and strlen($buscar)>4) {
 
     $obj = new M_Producto();
     ?>
-    <html lang="es">
-        <head>
-            <?php require_once '../pag/head.php'; ?>          
-            <script src="extras/js/funciones_sys.js" type="text/javascript"></script>
-        </head>
+    
+        
         <table id="tabla1" class="table table-bordered">            
                 <tr class="success">   
                     <?php
@@ -57,6 +54,5 @@ if (!empty($buscar) and strlen($buscar)>4) {
             }
             ?>
         </table>
-    </html>
     <?php
 }

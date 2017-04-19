@@ -82,81 +82,62 @@ class Producto {
     }
 
     public function create() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "Insert Into tb_productos(codigo_barras,nombres,_id_categoria,_id_marca,descripcion)
                     VALUES( '$this->codigo_barras','$this->nombres', '$this->_id_categoria',  
                             '$this->_id_marca','$this->descripcion')";
-            $result = mysql_query($sql);
-            if (!$result) {//Si es distinto de 1 ; si no se ejecuta                
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     public function update() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-            try {
-                $sql = "UPDATE tb_productos SET codigo_barras='$this->codigo_barras', nombres='$this->nombres',_id_categoria='$this->_id_categoria', _id_marca='$this->_id_marca',
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "UPDATE tb_productos SET codigo_barras='$this->codigo_barras', nombres='$this->nombres',_id_categoria='$this->_id_categoria', _id_marca='$this->_id_marca',
                         imagen='$this->imagen',estado='$this->estado'
                          WHERE id_producto='$this->id_producto'";
-                $result = mysql_query($sql);
-                if ($result > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } catch (Exception $ex) {
-                echo "No se pudo pudieron obtener los datos Error" . $ex->getMessage();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     public function delete() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-            try {
-                $sql = "DELETE FROM  tb_productos WHERE id_producto='$this->id_producto'";
-                if (mysql_query($sql) > 0) {//Si es distinto de 1 ; si no se ejecuta                
-                    return true;
-                } else {
-                    return false;
-                }
-                $conex->desconectar();
-            } catch (Exception $ex) {
-                echo "No se pudo pudieron obtener los datos Error" . $ex->getMessage();
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "DELETE FROM  tb_productos WHERE id_producto='$this->id_producto'";
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     public function retrive() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "SELECT * FROM v_producto_marca_categoria order by id_producto";
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $lista_[] = $lista;
-                }
-                return $lista_;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            mysql_free_result($result);
-            $conex->desconectar();
-        } else {
-            echo 'ERROR CON DB';
-            return false;
+            $conex->CloseConnection();
         }
     }
 
@@ -217,6 +198,26 @@ class Producto {
                 return false;
             }
             $conex->CloseConnection();
+        }
+    }
+
+    public function search_productos_disponibles_venta2() {
+        $conexion = new ConexPDO();
+        if ($conexion) {
+            try {
+                $dato = $this->nombres;
+                $sql = "SELECT id_compras,producto,codigo_barras, valor_venta,stok, fecha_compra,id_factura,id_producto
+                    FROM v_productos_disponibles_venta
+                    WHERE producto LIKE '%$dato%' or codigo_barras LIKE'%$dato%'";
+
+                $resultado = $conexion->query($sql);
+                $listaR = $resultado->fetchAll();
+                return $listaR;
+            } catch (Exception $exc) {
+                echo $exc->getTraceAsString();
+            }
+        } else {
+            return false;
         }
     }
 

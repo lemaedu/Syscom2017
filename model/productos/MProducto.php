@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../modelo/ConexDB/MysqlPDO.php';
+require_once '../../model/conexDB/ConexPDO.php';
 
 class M_Producto {
 
@@ -33,7 +33,7 @@ class M_Producto {
     }
 
     public function search_productos_disponibles_venta() {
-        $conexion = new MysqlPDO();
+        $conexion = new ConexPDO();
         if ($conexion) {
             try {                
                 $dato = $this->nombres;
@@ -41,9 +41,8 @@ class M_Producto {
                     FROM v_productos_disponibles_venta
                     WHERE producto LIKE '%$dato%' or codigo_barras LIKE'%$dato%'";
 
-                $resultado = $conexion->query($sql);
-                $listaR = $resultado->fetchAll();
-                return $listaR;
+                $resultado = $conexion->query($sql);                
+                return $resultado;
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
             }
