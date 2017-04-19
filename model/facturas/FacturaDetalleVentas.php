@@ -101,55 +101,50 @@ class FacturaDetalleVentas {
     /* ---------------------------------------------- */
 
     public function create_detalle_factura() {
-
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "call pa_crear_factura_detalle_ventas('$this->_id_factura', '$this->_id_producto','$this->cantidad',
                             '$this->precio_venta')";
             $sql1 = "call pa_actualizar_stok('$this->_id_transaccion_venta','$this->cantidad')";
 
-            if ((!mysql_query($sql)) and ( !mysql_query($sql1))) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return TRUE;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
     public function actualizar_detalle_factura_ventas() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "call pa_actualizar_factura_detalle_ventas('$this->id_venta','$this->_id_factura',
                             '$this->cantidad','$this->precio_venta','$this->descuento')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return TRUE;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
     public function eliminar_registro_detalle_factura() {
-
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conexion = new ConexPDO();
+        if ($conexion) {
             $sql = "call pa_eliminar_factura_detalle_ventas('$this->id_venta','$this->_id_factura')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+
+            $stm = $conexion->query($sql);
+            if ($stm) {
+                return TRUE;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
         }
     }
 
-    
     public function retriveFacturaAcctiva() {
         $conexion = new ConexPDO();
         if ($conexion) {
@@ -206,7 +201,7 @@ class FacturaDetalleVentas {
         $conexion = new ConexPDO();
         if ($conexion) {
             $sql = "select  sum(precio_venta*cantidad - precio_venta*cantidad*descuento) as total FROM v_detalle_factura_venta WHERE _id_empleado='$this->id_empleado' and estado='1'";
-            $stm = $conexion->query($sql);
+            $stm = $conexion->row($sql);
             if ($stm) {
                 return $stm;
             } else {
@@ -219,7 +214,7 @@ class FacturaDetalleVentas {
         $conexion = new ConexPDO();
         if ($conexion) {
             $sql = "select  sum(precio_venta*cantidad) as descuento FROM v_detalle_factura_venta WHERE _id_empleado='$this->id_empleado' and estado='1'";
-            $stm = $conexion->query($sql);
+            $stm = $conexion->row($sql);
             if ($stm) {
                 return $stm;
             } else {

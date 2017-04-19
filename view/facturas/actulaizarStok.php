@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once 'controlador/actores/C_Proveedor.php';
-require_once 'controlador/facturas/C_FacturaCompras.php';
-require_once 'vista/pag/FormHorizontal.php';
-require_once 'controlador/productos/C_Productos.php';
+require_once 'controller/actores/C_Proveedor.php';
+require_once 'controller/facturas/C_FacturaCompras.php';
+require_once 'view/page/FormHorizontal.php';
+require_once 'controller/productos/C_Productos.php';
 if (!isset($_SESSION['s_id_usuario'])) {
     header('location:index.php');
 } else {
@@ -11,12 +11,12 @@ if (!isset($_SESSION['s_id_usuario'])) {
     <!DOCTYPE html>
     <html lang = "es">
         <head>
-            <?php require_once 'vista/pag/head.php';
+            <?php require_once 'view/page/head.php';
             ?> 
-            <link href="extras/css/agrega_ico.css" rel="stylesheet" type="text/css"/>
+         
+            <link href="resourse/dataTable/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+            <script src="resourse/dataTable/jquery.dataTables.min.js" type="text/javascript"></script>
             
-            <link href="extras/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>          
-            <script src="extras/js/jquery.dataTables.min.js" type="text/javascript"></script>
             <script>
                 $(document).ready(function () {
                     $('#tabla1').DataTable();
@@ -27,7 +27,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
 
         <body>
             <?php
-            require_once 'vista/pag/menu.php';
+            require_once 'view/page/menu.php';
             ?>
 
             <div class="container">

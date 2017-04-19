@@ -1,6 +1,6 @@
 <?php
 
-require_once 'modelo/ConexDB/conexionMYSQL.php';
+require_once 'model/conexDB/ConexPDO.php';
 
 class Productos {
 

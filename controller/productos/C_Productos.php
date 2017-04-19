@@ -1,7 +1,7 @@
 <?php
 
 //require_once 'vista/ingresos/V_ingresarEquipo.php';
-require_once 'modelo/productos/Productos.php';
+require_once 'model/productos/Productos.php';
 
 class
 C_Productos {

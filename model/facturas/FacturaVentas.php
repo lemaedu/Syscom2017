@@ -83,151 +83,115 @@ class FacturaVentas {
 
     /* --------------------------------------------------------------------- */
 
-    public function create_factura_ventas() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+    function create_factura_ventas() {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "call pa_crear_factura_ventas('$this->_id_cliente','$this->_id_empleado')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
-            }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
-        }
-    }
-
-    function retriveFacturaAcctiva() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-            $sql = "select * FROM v_facturas_ventas_activas WHERE _id_empleado='$this->_id_empleado' and estado=1";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
+        } 
+    }
+
+    function retriveFacturaAcctiva() {
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "select * FROM v_facturas_ventas_activas WHERE _id_empleado='$this->_id_empleado' and estado=1";
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
+            } else {
+                return false;
+            }
+            $conex->CloseConnection();
         }
     }
 
     function retriveFacturaNumero() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "select * FROM v_facturas_ventas_activas WHERE id_factura='$this->id_factura'";
-
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
-    public function closeFacturaAcctivaVentas() {
-        $conex = new conexionMYSQL();
-
-        if ($conex->conectar()) {
+    function closeFacturaAcctivaVentas() {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "call pa_cerrar_factura_ventas('$this->id_factura','$this->_id_empleado','$this->estado')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
-            }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
-        }
-    }
-
-    public function retriveListaFacturaVentas() {
-        $conexion = new ConexPDO();
-        if ($conexion) {
-            $sql = "select * FROM v_lista_factura_ventas where id_empleado='$this->_id_empleado' and estado<>'3' ";
-            $stm = $conexion->query($sql);
-            if ($stm) {
-                return $stm;
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
             } else {
                 return false;
             }
+            $conex->CloseConnection();
+        }
+    }
+
+    function retriveListaFacturaVentas() {
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "select * FROM v_lista_factura_ventas where id_empleado='$this->_id_empleado' and estado<>'3' ";
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
+            } else {
+                return false;
+            }
+            $conex->CloseConnection();
         }
     }
 
     function retriveHistorialFacturaVentas() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "select * FROM v_lista_factura_ventas where id_empleado='$this->_id_empleado' and CAST(fecha_venta AS DATE) = '$this->fecha_venta'";
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     function retrive_total_venta_por_factura() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "select id_factura,total,descuento FROM v_lista_factura_ventas where id_factura='$this->id_factura'";
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     function updateEstadoFactura() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-            try {
-                $sql = "call pa_actualizar_estado_factura_ventas('$this->id_factura','$this->estado')";
-                if (!mysql_query($sql)) {
-                    echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
-                }
-                $conex->desconectar();
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "call pa_actualizar_estado_factura_ventas('$this->id_factura','$this->estado')";
+            $result = $conex->query($sql);
+            if ($result) {
                 return true;
-            } catch (Exception $ex) {
-                echo "No se pudo pudieron obtener los datos Error" . $ex->getMessage();
+            } else {
+                return false;
             }
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 

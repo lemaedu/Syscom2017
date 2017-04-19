@@ -1,6 +1,6 @@
 <?php
 
-include_once 'modelo/ConexDB/conexionMYSQL.php';
+require_once 'model/conexDB/ConexPDO.php';
 
 class FacturaDetalleCompras {
 
@@ -116,19 +116,18 @@ class FacturaDetalleCompras {
         $compra_real = $this->f_compra_real();
         $venta = $this->f_precio_venta();
 
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $valor_r = round($compra_real, 2);
-
             $sql = "call pa_crear_factura_detalle_compras('$this->_id_factura', '$this->_id_producto','$this->cantidad',
                             '$this->valor_compra','$compra_real','$this->stok','$this->descuento','$venta')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
@@ -136,17 +135,17 @@ class FacturaDetalleCompras {
 
         $compra_real = number_format($this->f_compra_real(), 4, '.', ',');
         $val_com = number_format($this->valor_compra, 4, '.', ',');
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "call pa_actualizar_factura_detalle_compras('$this->id_compras','$this->cantidad',
                             '$val_com','$compra_real','$this->stok','$this->descuento','$this->valor_venta')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
@@ -154,120 +153,90 @@ class FacturaDetalleCompras {
 
         $compra_real = number_format($this->f_compra_real(), 4, '.', ',');
         $val_com = number_format($this->valor_compra, 4, '.', ',');
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "call pa_actualizar_stok('$this->id_compras','$this->stok','$this->_id_factura')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     public function eliminar_registro_detalle_factura() {
 
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "call pa_eliminar_factura_detalle_compras('$this->id_compras')";
-            if (!mysql_query($sql)) {
-                echo "Falló la llamada: (" . mysql_errno() . ") " . mysql_error();
+            $result = $conex->query($sql);
+            if ($result) {
+                return true;
+            } else {
+                return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     function retriveFacturaAcctiva() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "select * FROM v_factura_compras_abiertas";
 
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     function retrive_detalle_factura_compras() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "select * FROM v_detalle_factura_compras WHERE _id_empleado='$this->id_empleado' and estado='1' and id_factura='$this->_id_factura'";
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     function retrive_detalle_factura_compras_stok() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
-
+        $conex = new ConexPDO();
+        if ($conex) {
             $sql = "select * FROM v_detalle_factura_compras_stok";
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                while ($lista = mysql_fetch_row($result)) {
-                    $listaR[] = $lista;
-                }
-                return $listaR;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
     function retrive_detalle_factura_compras_total() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
 
             $sql = "select sum(valor_real_compra*cantidad) as total FROM v_detalle_factura_compras WHERE  id_factura='$this->_id_factura'";
 
-            $result = mysql_query($sql);
-            $num_col = mysql_num_rows($result);
-
-            if (($result) && ($num_col > 0)) {
-                return $fila = mysql_fetch_array($result, MYSQL_ASSOC);
+            $result = $conex->row($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            $conex->desconectar();
-            return true;
-        } else {
-            echo 'ERROR DE CONEXION CON DB';
+            $conex->CloseConnection();
         }
     }
 
