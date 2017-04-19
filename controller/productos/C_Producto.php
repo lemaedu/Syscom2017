@@ -29,15 +29,15 @@ C_Producto {
     public function actualizar() {
         try {
             $nObj = new Producto();
-            
+
             $nObj->set_id_categoria($_POST["categoria"]);
             $nObj->set_id_marca($_POST["marca"]);
             $nObj->setCodigo_barras($_POST["codigo_barras"]);
             $nObj->setNombres($_POST["nombre"]);
-            $nObj->setId_producto($_POST["id"]);  
+            $nObj->setId_producto($_POST["id"]);
             //$nObj->setImagen($_POST["im"]);            
             $nObj->setEstado($_POST["estado"]);
-            
+
 
             if ($nObj->update()) {
                 return true;
@@ -83,14 +83,15 @@ C_Producto {
     public function buscar() {
 
         $nObj = new Producto();
-        $nObj->setDescripcion($_POST["buscar_producto"]);        
+        $nObj->setDescripcion($_POST["buscar_producto"]);
         if ($nObj->search()) {
-            return  $nObj->search();
+            return $nObj->search();
         } else {
             return false;
         }
     }
-      public function buscar_productos_disponibles_por_codBarr() {
+
+    public function buscar_productos_disponibles_por_codBarr() {
 
         $nObj = new Producto();
         $nObj->setId_producto($_POST["codigo_barras"]);
@@ -100,6 +101,16 @@ C_Producto {
             return false;
         }
     }
-      
+
+    public function buscar_productos_disponibles() {
+
+        $nObj = new Producto();
+        $nObj->setDescripcion($_POST["buscar_producto"]);
+        if ($datos = $nObj->search_productos_disponibles_venta()) {
+            return $datos;
+        } else {
+            return false;
+        }
+    }
 
 }

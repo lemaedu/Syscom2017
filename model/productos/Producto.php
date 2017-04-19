@@ -174,9 +174,9 @@ class Producto {
         if ($conex) {
             $sql1 = "SELECT * FROM v_producto_marca_categoria
                     WHERE producto LIKE '%$this->descripcion%' or codigo_barras LIKE '%$this->descripcion%' ";
-            $result = $conex-> query($sql1);
+            $result = $conex->query($sql1);
             if ($result) {
-                return $resul;
+                return $result;
             } else {
                 return false;
             }
@@ -188,27 +188,35 @@ class Producto {
     }
 
     public function search_productos_disponibles_venta1() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
 
             $sql = "SELECT id_compras,producto,codigo_barras, valor_venta,stok, fecha_compra,id_factura,id_producto
                     FROM v_productos_disponibles_venta
                     WHERE codigo_barras='$this->id_producto'";
-            $result = mysql_query($sql);
-            $numero_filas = mysql_num_rows($result);
-            if (($result) && ($numero_filas > 0)) {
-                while ($lista_temporal = mysql_fetch_row($result)) {
-                    $lista_resultados[] = $lista_temporal;
-                }
-                return $lista_resultados;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            mysql_free_result($result);
-            $conex->desconectar();
-        } else {
-            echo 'ERROR CON DB';
-            return false;
+            $conex->CloseConnection();
+        }
+    }
+
+    public function search_productos_disponibles_venta() {
+        $conex = new ConexPDO();
+        if ($conex) {
+            $sql = "SELECT id_compras,producto,codigo_barras, valor_venta,stok, fecha_compra,id_factura,id_producto
+                    FROM v_productos_disponibles_venta
+                    WHERE producto LIKE '%$this->descripcion%' or codigo_barras LIKE'%$this->descripcion%'";
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
+            } else {
+                return false;
+            }
+            $conex->CloseConnection();
         }
     }
 

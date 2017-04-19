@@ -181,7 +181,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                 if (!empty($_POST['buscar_producto'])) {
 
 
-                                    $nObj = new C_Productos();
+                                    $nObj = new C_Producto();
                                     $result = $nObj->buscar_productos_disponibles();
                                     ?>
                                     <!--MUSTRA TABLA CON RESULTADOS DE BUSQUEDA-->
