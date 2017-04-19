@@ -154,7 +154,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                     }
                                 }
                                 if (!empty($_POST['codigo_barras'])) {
-                                    $nObj1 = new C_Productos();
+                                    $nObj1 = new C_Producto();
                                     $result = $nObj1->buscar_productos_disponibles_por_codBarr();
 
                                     $id_prod = 0;

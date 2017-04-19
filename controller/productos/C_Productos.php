@@ -110,9 +110,9 @@ C_Productos {
 
     public function buscar_productos_disponibles_por_codBarr() {
 
-        $nObj = new Productos();
+        $nObj = new Producto();
         $nObj->setId_producto($_POST["codigo_barras"]);
-        if ($datos = $nObj->search_productos_disponibles_venta1()) {
+        if ($datos = $nObj->search_productos_disponibles_venta_cod_barr()) {
             return $datos;
         } else {
             return false;

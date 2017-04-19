@@ -168,7 +168,7 @@ class Producto {
         }
     }
 
-    public function search_productos_disponibles_venta1() {
+    public function search_productos_disponibles_venta_cod_barr() {
         $conex = new ConexPDO();
         if ($conex) {
 
