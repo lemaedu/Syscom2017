@@ -113,6 +113,26 @@ class M_Usuario {
             echo 'ERROR DE CONEXION CON DB';
         }
     }
+        public function change_passw() {
+        $conex = new ConexPDO();
+        if ($conex) {         
+                $sql = "SELECT * FROM tb_usuarios WHERE id_usuario='$this->id_usuario' and passw='$this->passw'";
+                $result = $conex->query($sql);
+                if ($result) {                    
+                    $passvieja = $dato["passw"];
+                    if ($this->passw == $passvieja) {
+                        $sql = "Update tb_usuarios Set passw='$this->passw_new' Where id_usuario='$this->id_usuario'";
+                        $result = $conex->query($sql);
+                        if ($result) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            
+        }
+    }
 
     public function camposTabla() {
         return getCamposTabla($this->tabla);

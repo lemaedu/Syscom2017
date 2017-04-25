@@ -1,9 +1,9 @@
 <?php
 session_start();
-require_once ('controlador/actores/C_Proveedor.php');
-include_once('controlador/productos/C_Producto.php');
-include_once('controlador/facturas/C_FacturaCompras.php');
-require_once ('vista/pag/FormHorizontal.php');
+require_once ('controller/actores/C_Proveedor.php');
+include_once('controller/productos/C_Producto.php');
+include_once('controller/facturas/C_FacturaCompras.php');
+require_once ('view/page/FormHorizontal.php');
 
 if (!isset($_SESSION['s_id_usuario'])) {
     header('location:index.php');
@@ -20,10 +20,10 @@ if (!isset($_SESSION['s_id_usuario'])) {
     <!DOCTYPE html>
     <html lang="es">
         <head>
-            <?php require_once 'vista/pag/head.php'; ?> 
-            <link href="extras/css/agrega_ico.css" rel="stylesheet" type="text/css"/>
-            <link href="extras/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>          
-            <script src="extras/js/jquery.dataTables.min.js" type="text/javascript"></script>
+            <?php require_once 'view/page/head.php'; ?> 
+            
+            <link href="resourse/dataTable/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+            <script src="resourse/dataTable/jquery.dataTables.min.js" type="text/javascript"></script>
             <script>
                 $(document).ready(function () {
                     $('#tabla').DataTable();
@@ -32,7 +32,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
         </head>
 
         <body>
-            <?php require_once 'vista/pag/menu.php'; ?>
+            <?php require_once 'view/page/menu.php'; ?>
             <div class="container">
                 <div class="row">                    
                     <div class="col-md-12">
@@ -53,7 +53,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                     <a href="#" role="button" class="btn btn-toolbar" data-toggle="modal" title="Imprimir">
                                         <span class="glyphicon glyphicon-print"></span>
                                     </a> 
-                                    <a href="vista/Reportes/RepProductos.php" target="_blank" role="button" class="btn btn-lg" data-toggle="modal" title="PDF">
+                                    <a href="view/Reportes/RepProductos.php" target="_blank" role="button" class="btn btn-lg" data-toggle="modal" title="PDF">
                                         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                     </a>
                                     <a href="#" role="button" class="btn btn-lg" data-toggle="modal" title="PDF">

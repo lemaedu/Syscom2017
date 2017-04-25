@@ -1,13 +1,13 @@
 <?php
 
 session_start();
-require_once 'controlador/actores/C_Cliente.php';
-require_once 'controlador/facturas/C_FacturaVentas.php';
+require_once 'controller/actores/C_Cliente.php';
+require_once 'controller/facturas/C_FacturaVentas.php';
 
 if (!isset($_SESSION['s_id_usuario'])) {
     header('location:index.php');
 } else {
-    require 'fpdf/fpdf.php';
+    require 'resourse/fpdf/fpdf.php';
     
 
     class PDF extends FPDF {
@@ -92,8 +92,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
     $data0 = null;
     $data = NULL;
     $data1 = null;
-    $conex = new conexionMYSQL();
-    $conex->conectar();
+    $conex = new ConexPDO();    
     /* ------------------------------CABECERA DE FACTURA--------------------------- */
     $numeroFactura = $_GET['fact'];
     $nObj = new C_FacturaVentas();

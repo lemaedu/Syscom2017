@@ -7,11 +7,11 @@ if (!isset($_SESSION['s_id_usuario'])) {
     <!DOCTYPE html>
     <html lang="es">
         <head>
-            <?php require_once 'vista/pag/head.php'; ?>  
+            <?php require_once 'view/page/head.php'; ?>  
 
         </head>
         <body>
-            <?php require_once 'vista/pag/menu.php'; ?>
+            <?php require_once 'view/page/menu.php'; ?>
             <div class="container">
                 <div class="row" align="center">
                     <div class="col-lg-6 col-md-offset-3" >
@@ -50,7 +50,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
 
                                         <?php
                                         if (isset($_POST['btnCambiar'])) {
-                                            require_once 'controlador/seguridad/C_Usuario.php';
+                                            require_once 'controller/seguridad/C_Usuario.php';
                                             $nObj = new C_Usuario();
                                             if ($resultado = $nObj->cambiar_pssw()) {
                                                 echo '<div class="alert alert-info" align="center">
@@ -69,7 +69,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
 
                                 </div>
                                 <div class="col-md-4">
-                                    <h3><img src="extras/img/cambio_clave.jpg" class="img-circle img-polaroid" width="150" height="150"> </h3>
+                                    <h3><img src="resourse/img/cambio_clave.jpg" class="img-circle img-polaroid" width="150" height="150"> </h3>
                                 </div>
                             </div>
                             <div class="panel-footer">

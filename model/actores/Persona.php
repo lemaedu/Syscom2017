@@ -11,8 +11,7 @@
  *
  * @author SYSCOM
  */
-require_once 'modelo/ConexDB/conexionMYSQL.php';
-require_once 'modelo/ConexDB/MysqlPDO.php';
+require_once 'model/ConexDB/ConexPDO.php';
 
 class Persona {
 
@@ -182,33 +181,25 @@ class Empleado extends Persona {
     }
 
     public function search1() {
-        $conex = new conexionMYSQL();
-        if ($conex->conectar()) {
+        $conex = new ConexPDO();
+        if ($conex) {
 
             $b = $this->getCedula();
 
             $sql = "SELECT id_empleado,nombres,apellidos,nacimiento,sexo,correo,nacionalidad,telefono,direccion FROM tb_empleados
                     WHERE (id_empleado ='$b')";
-            $result = mysql_query($sql);
-            $numero_filas = mysql_num_rows($result);
-
-            if (($result) && ($numero_filas > 0)) {
-                while ($lista_temporal = mysql_fetch_row($result)) {
-                    $lista_resultados[] = $lista_temporal;
-                }
-                return $lista_resultados;
+            $result = $conex->query($sql);
+            if ($result) {
+                return $result;
             } else {
                 return false;
             }
-            mysql_free_result($result);
-            $conex->desconectar();
-        } else {
-            return false;
+            $conex->CloseConnection();
         }
     }
 
     public function update() {
-        $conexion = new MysqlPDO();
+        $conexion = new ConexPDO();
         if ($conexion) {
             try {
                 $ced = $this->getCedula();
@@ -219,8 +210,8 @@ class Empleado extends Persona {
 
                 $sql = "call pa_actualizar_empleado('$ced','$nom','$ape','$nac','$sex','$this->correo',
                         '$this->nacionalidad','$this->telefono','$this->direccion','$this->foto')";
-                $stm = $conexion->prepare($sql);
-                if ($stm->execute()) {
+                $stm = $conexion->query($sql);
+                if ($stm) {
                     return true;
                 } else {
                     return false;

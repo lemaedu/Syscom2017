@@ -9,8 +9,14 @@
 <link href="resourse/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <!--Scripts-->
 <script src="resourse/jQuery/jquery-3.2.0.min.js" type="text/javascript"></script>
-
 <script src="resourse/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<!--Scripts DatePicker-->
+<link href="resourse/datepicker/css/datepicker.css" rel="stylesheet" type="text/css"/>
+<script src="resourse/datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+<!--Scripts font-awesome-4.7.0 -->
+<link href="resourse/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="resourse/ico/apple-touch-icon-144-precomposed.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="resourse/ico/apple-touch-icon-114-precomposed.png">

@@ -1,7 +1,7 @@
 <?php
 
 //require_once 'vista/ingresos/V_ingresarEquipo.php';
-require_once 'modelo/actores/Persona.php';
+require_once 'model/actores/Persona.php';
 
 class C_Empleado {
 

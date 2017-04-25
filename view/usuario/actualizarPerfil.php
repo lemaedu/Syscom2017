@@ -7,10 +7,10 @@ if (!isset($_SESSION['s_id_usuario'])) {
     <!DOCTYPE html>
     <html lang="es">
         <head>
-            <?php require_once 'vista/pag/head.php'; ?> 
+            <?php require_once 'view/page/head.php'; ?> 
         </head>
         <body>
-            <?php require_once 'vista/pag/menu.php'; ?>
+            <?php require_once 'view/page/menu.php'; ?>
             <div class="container">
                 <div class="row" align="center">
                     <div class="col-lg-8 col-md-offset-2" >
@@ -22,8 +22,8 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                 <div class="col-md-8">
                                     <form class="form-horizontal" role="form" method="post" action="index.php?pag=102">
                                         <?php
-                                        require_once 'vista/pag/FormHorizontal.php';
-                                        require_once 'controlador/actores/C_Empleado.php';
+                                        require_once 'view/page/FormHorizontal.php';
+                                        require_once 'controller/actores/C_Empleado.php';
                                         $nConEm = new C_Empleado();
 
                                         if (isset($_POST['actualizar'])) {
@@ -64,7 +64,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                 </div>
                                 <div class="col-md-4">
 
-                                    <img src="extras/img/cambio_clave.jpg" class="img-circle img-polaroid" width="150" height="150">
+                                    <img src="resourse/img/cambio_clave.jpg" class="img-circle img-polaroid" width="150" height="150">
                                     <strong>FOTO </strong><br>                                                                
                                     <input class="form-control" type="file" name="foto" id="foto">                                    
 
