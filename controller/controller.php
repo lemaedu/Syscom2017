@@ -11,7 +11,7 @@ class controlador_mvc {
     }
 
     public function render() {
-//$_GET['pag'] tra valor de los o numero de Pagina por get
+//$_GET['pag'] trae valor de los o numero de Pagina por get
         if (isset($_GET['pag'])) {
             $this->_prepararDatos();
             switch ($this->pag) {
@@ -152,7 +152,6 @@ class controlador_mvc {
     public function pag_200() {        
         require_once 'view/facturas/facturacion.php';
     }
-
 
     //------------------------ SOLO REPORTES ----------------------------------//
 
