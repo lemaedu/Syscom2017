@@ -1,3 +1,4 @@
+<!-- pagina principal -->
 <?php
 require_once 'page/FormHorizontal.php';
 session_start();
