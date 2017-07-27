@@ -109,7 +109,7 @@ if (!isset($_SESSION['s_id_usuario'])) {
                 </div> <!-- class="row"-->
             </div> <!--container-fluid-->
             <?php
-//                        Llama a Div para nuevo registro
+//    Llama a Div para nuevo registro
              
             getDivNew($campos, $numCampoVisible, $numCampos, $id_tab);
             ?>
