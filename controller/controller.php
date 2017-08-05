@@ -33,6 +33,8 @@ class controlador_mvc {
                 case "15":$this->pag_15(); break;
                 case "16":$this->pag_16(); break;
                 case "17":$this->pag_17(); break;
+                case "18":$this->pag_18(); break;
+                case "19":$this->pag_19(); break;
                 /* SECCION REPORTES ****** */
                 case "20":$this->pag_20(); break;
                 case "21":$this->pag_21(); break;
@@ -42,6 +44,7 @@ class controlador_mvc {
                 case "31":$this->pag_31(); break;
                 
                 case "40":$this->pag_40(); break;
+                
                 case "101":$this->pag_101(); break;
                 case "102":$this->pag_102(); break;
                 case "103":$this->pag_103(); break;
@@ -133,6 +136,16 @@ class controlador_mvc {
         require_once 'view/facturas/actulaizarStok.php';
     }
 
+    //pedidos
+    public function pag_18() {
+        require_once 'view/Reportes/RepFacturaVentas.php';
+    }
+    
+    //consulta presios
+    public function pag_19() {
+        require_once 'view/facturas/actulaizarStok.php';
+    }
+    
     public function pag_100() {
         require_once 'view/seguridad/grupos.php';
     }
