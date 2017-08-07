@@ -124,8 +124,8 @@ class controlador_mvc {
     }
 
     public function pag_15() {
-//        require_once 'vista/facturas/facturaCompras.php';
-        require_once 'view/facturas/historialFacturaCompras.php';
+        require_once 'view/facturas/facturaCompras.php';
+//        require_once 'view/facturas/historialFacturaCompras.php';
     }
 
     public function pag_16() {
