@@ -1,0 +1,4 @@
+Time : 11:28:42
+SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`db_syscomandes`.`tb_detalle_ventas`, CONSTRAINT `tb_detalle_ventas_ibfk_2` FOREIGN KEY (`_id_producto`) REFERENCES `tb_productos` (`id_producto`))
+Raw SQL : call pa_crear_factura_detalle_ventas('49', '0','0',
+                            '0')

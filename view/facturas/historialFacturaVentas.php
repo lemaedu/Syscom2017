@@ -25,9 +25,9 @@ if (!isset($_SESSION['s_id_usuario'])) {
             <?php require_once 'view/page/head.php'; ?> 
             <link href="extras/css/agrega_ico.css" rel="stylesheet" type="text/css"/>
 
-            <link href="extras/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>          
-            <script src="extras/js/jquery.dataTables.min.js" type="text/javascript"></script>
-                        
+            <link href="resourse/dataTable/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>            
+            <script src="resourse/dataTable/jquery.dataTables.min.js" type="text/javascript"></script>
+            
             <script>
                 $(document).ready(function () {
                     $('#tabla').DataTable();
@@ -82,12 +82,11 @@ if (!isset($_SESSION['s_id_usuario'])) {
 
                 <?php
                 if (isset($_POST['fecha'])) {
-                    echo "Hola";
+//                    echo "Hola";
                 }
                 ?>
                 <div class="row">
                     <div class="col-sm-3 col-md-2">
-
 
                         <ul class="list-group">
                             <li class="list-group-item">Cras justo odio</li>
@@ -131,11 +130,8 @@ if (!isset($_SESSION['s_id_usuario'])) {
                                         <tr>
                                             <td><?php echo $fila[0] ?></td>
                                             <td><?php echo $fila[1] ?></td>
-
                                             <td><?php echo estado1($fila[0], $fila[2]) ?></td>
-
                                             <td><?php echo $fila[4] ?></td>
-
                                             <td><?php echo $fila[6] ?></td>
                                             <td><?php echo round($fila[7] - $fila[8], 2) ?></td>
 
