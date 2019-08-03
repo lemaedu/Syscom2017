@@ -34,6 +34,8 @@ CREATE TABLE tb_empleados (
 
 CREATE TABLE tb_usuarios (    
     id_usuario varchar(15) primary key,/*cedula*/
+    alias varchar(50),
+    correo varchar(50),
     passw varchar(32),    
     estado char(1) default 'A', /* A=activo , X = Desactivado*/
     index empleado_usuario(id_usuario),
