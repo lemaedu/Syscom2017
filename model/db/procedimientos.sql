@@ -161,24 +161,27 @@ create procedure pa_actualizar_estado_menu(
         end if;
     END$$
 /*-------------------- CREA EMPLEADO--------------------------*/
-create procedure pa_actualizar_empleado(
-    id_empleado varchar(15) primary key,/*cedula*/
-    nombres varchar(30),
-    apellidos varchar(30),
-    nacimiento date,
-    sexo char(1) default 'M',
-    correo varchar(30) default '',
-    nacionalidad varchar(30)default '',
-    telefono varchar(10) default '',
-    direccion varchar(50) default '',
-    foto varchar(100),
+create procedure pa_crear_empleado(
+    _id_empleado varchar(15),/*cedula*/
+    _nombres varchar(30),
+    _apellidos varchar(30),
+    _nacimiento date,
+    _sexo char(1),
+    _correo varchar(30),
+    _nacionalidad varchar(30),
+    _telefono varchar(10) ,
+    _direccion varchar(50) ,
+    _foto varchar(100)
 )    
 begin   
-    update tb_empleados
-    set nombres=_nombres, apellidos=_apellidos, nacimiento=_nacimiento,
-        sexo=_sexo, correo=_correo, nacionalidad=_nacionalidad,telefono=_telefono,
-        direccion=_direccion,foto=_foto
-    WHERE id_empleado=_cedula;
+    IF NOT EXISTS ( SELECT C.nombres
+        FROM tb_empleados AS e 
+        WHERE e.id_empleado = _id_empleado) THEN
+        Insert Into tb_empleados(id_empleado, nombres,apellidos,nacimiento,sexo,correo,nacionalidad,telefono,direccion,foto)
+        VALUES (_id_empleado, _nombres,_apellidos,_nacimiento,_sexo,_correo,_nacionalidad,_telefono,_direccion,_foto);
+        ELSE
+        SELECT 'Este cliente ya existe en la base de datos!';
+    END IF;
 END$$
 /*-------------------- ACTUALIZA EMPLEADO----------------------------*/
 create procedure pa_actualizar_empleado(

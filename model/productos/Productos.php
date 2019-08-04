@@ -16,96 +16,41 @@ class Productos {
     var $precio_venta;
     var $estado;
 
+    /* ---------------- */
+    private $attrib = array();
+    protected $tabla = "tb_productos";
+
     function __construct() {
         
     }
 
-    function getStok() {
-        return $this->stok;
+//Metodo magico utilizado para __set y __get
+    public function __call($method, $args) {
+        $methodType = substr($method, 0, 3);
+        $attribName = strtolower(substr($method, 3));
+        $claseName = get_class($this);
+        if ($methodType == "set") {
+            if (property_exists($claseName, $attribName)) {
+                $this->setAttrib($attribName, $args[0]);
+            } else {
+                echo "No existe el atributo $attribName.";
+            }
+        }
+        if ($methodType == "get") {
+            if (property_exists($claseName, $attribName)) {
+                return $this->getAttrib($attribName);
+            } else {
+                echo 'Método no definido <br/>';
+            }
+        }
     }
 
-    function setStok($stok) {
-        $this->stok = $stok;
+    private function setAttrib($attribName, $value) {
+        $this->attrib[$attribName] = "$value";
     }
 
-    function getId_producto() {
-        return $this->id_producto;
-    }
-
-    function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    function getCantidad() {
-        return $this->cantidad;
-    }
-
-    function getValor_compra() {
-        return $this->valor_compra;
-    }
-
-    function getDescuento() {
-        return $this->descuento;
-    }
-
-    function getTotal_compra() {
-        return $this->total_compra;
-    }
-
-    function getProveedor() {
-        return $this->proveedor;
-    }
-
-    function getValor_real_compra() {
-        return $this->valor_real_compra;
-    }
-
-    function getPrecio_venta() {
-        return $this->precio_venta;
-    }
-
-    function getEstado() {
-        return $this->estado;
-    }
-
-    function setId_producto($id_producto) {
-        $this->id_producto = $id_producto;
-    }
-
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    function setCantidad($cantidad) {
-        $this->cantidad = $cantidad;
-    }
-
-    function setValor_compra($valor_compra) {
-        $this->valor_compra = $valor_compra;
-    }
-
-    function setDescuento($descuento) {
-        $this->descuento = $descuento;
-    }
-
-    function setTotal_compra($total_compra) {
-        $this->total_compra = $total_compra;
-    }
-
-    function setProveedor($proveedor) {
-        $this->proveedor = $proveedor;
-    }
-
-    function setValor_real_compra($valor_real_compra) {
-        $this->valor_real_compra = $valor_real_compra;
-    }
-
-    function setPrecio_venta($precio_venta) {
-        $this->precio_venta = $precio_venta;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
+    private function getAttrib($attribName) {
+        return $this->attrib[$attribName];
     }
 
     public function f_total_compra() {

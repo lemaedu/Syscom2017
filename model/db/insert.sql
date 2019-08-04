@@ -13,8 +13,8 @@
 insert into tb_empleados(id_empleado,nombres) values('admin','Administrador');
 insert into tb_empleados(id_empleado,nombres) values('user1','Usuario');
 
-insert into tb_usuarios values('admin','827ccb0eea8a706c4c34a16891f84e7b');
-insert into tb_usuarios values('user1','827ccb0eea8a706c4c34a16891f84e7b');
+insert into tb_usuarios(id_usuario,passw) values('admin','827ccb0eea8a706c4c34a16891f84e7b');
+insert into tb_usuarios(id_usuario,passw) values('user1','827ccb0eea8a706c4c34a16891f84e7b');
 
 INSERT INTO tb_grupos (grupo) VALUES ('ADMIN - Acceso');
 INSERT INTO tb_grupos (grupo) VALUES ('ADMIN - Seguridad');

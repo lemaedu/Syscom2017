@@ -12,73 +12,41 @@ class Producto {
     var $imagen;
     var $descripcion;
     var $estado;
+    /* ---------------- */
+    private $attrib = array();
+    protected $tabla = "tb_productos";
 
     function __construct() {
         
     }
 
-    function getImagen() {
-        return $this->imagen;
+//Metodo magico utilizado para __set y __get
+    public function __call($method, $args) {
+        $methodType = substr($method, 0, 3);
+        $attribName = strtolower(substr($method, 3));
+        $claseName = get_class($this);
+        if ($methodType == "set") {
+            if (property_exists($claseName, $attribName)) {
+                $this->setAttrib($attribName, $args[0]);
+            } else {
+                echo "No existe el atributo $attribName.";
+            }
+        }
+        if ($methodType == "get") {
+            if (property_exists($claseName, $attribName)) {
+                return $this->getAttrib($attribName);
+            } else {
+                echo 'Método no definido <br/>';
+            }
+        }
     }
 
-    function setImagen($imagen) {
-        $this->imagen = $imagen;
+    private function setAttrib($attribName, $value) {
+        $this->attrib[$attribName] = "$value";
     }
 
-    function getCodigo_barras() {
-        return $this->codigo_barras;
-    }
-
-    function setCodigo_barras($codigo_barras) {
-        $this->codigo_barras = $codigo_barras;
-    }
-
-    function getId_producto() {
-        return $this->id_producto;
-    }
-
-    function get_id_categoria() {
-        return $this->_id_categoria;
-    }
-
-    function get_id_marca() {
-        return $this->_id_marca;
-    }
-
-    function getNombres() {
-        return $this->nombres;
-    }
-
-    function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    function getEstado() {
-        return $this->estado;
-    }
-
-    function setId_producto($id_producto) {
-        $this->id_producto = $id_producto;
-    }
-
-    function set_id_categoria($_id_categoria) {
-        $this->_id_categoria = $_id_categoria;
-    }
-
-    function set_id_marca($_id_marca) {
-        $this->_id_marca = $_id_marca;
-    }
-
-    function setNombres($nombres) {
-        $this->nombres = $nombres;
-    }
-
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
+    private function getAttrib($attribName) {
+        return $this->attrib[$attribName];
     }
 
     public function create() {

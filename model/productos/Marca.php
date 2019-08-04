@@ -20,41 +20,41 @@ class Marca {
     var $nombre;
     var $descripcion;
     var $estado;
+/* ---------------- */
+    private $attrib = array();
+    protected $tabla = "tb_marca";
 
     function __construct() {
         
     }
 
-    function getId_marca() {
-        return $this->id_marca;
+//Metodo magico utilizado para __set y __get
+    public function __call($method, $args) {
+        $methodType = substr($method, 0, 3);
+        $attribName = strtolower(substr($method, 3));
+        $claseName = get_class($this);
+        if ($methodType == "set") {
+            if (property_exists($claseName, $attribName)) {
+                $this->setAttrib($attribName, $args[0]);
+            } else {
+                echo "No existe el atributo $attribName.";
+            }
+        }
+        if ($methodType == "get") {
+            if (property_exists($claseName, $attribName)) {
+                return $this->getAttrib($attribName);
+            } else {
+                echo 'Método no definido <br/>';
+            }
+        }
     }
 
-    function getNombre() {
-        return $this->nombre;
+    private function setAttrib($attribName, $value) {
+        $this->attrib[$attribName] = "$value";
     }
 
-    function getDescripcion() {
-        return $this->descripcion;
-    }
-
-    function getEstado() {
-        return $this->estado;
-    }
-
-    function setId_marca($id_marca) {
-        $this->id_marca = $id_marca;
-    }
-
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
-    }
-
-    function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
-
-    function setEstado($estado) {
-        $this->estado = $estado;
+    private function getAttrib($attribName) {
+        return $this->attrib[$attribName];
     }
 
     /* ---------------METODOS CRUD-------------- */
